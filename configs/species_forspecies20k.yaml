@@ -1,0 +1,40 @@
+# FOR-species20K tree species classification (TLS / MLS / ULS single-tree clouds, 33 species).
+# Download dev.zip + tree_metadata_dev.csv from https://zenodo.org/records/13255198
+# The official test labels are withheld (Codabench); we hold out a stratified split of dev for validation.
+seed: 0
+device: auto
+output_dir: runs/species_fusion_attention
+
+data:
+  metadata_csv: data/FOR-species20K/tree_metadata_dev.csv
+  root: data/FOR-species20K/dev
+  id_col: treeID          # verify column names in the CSV after download
+  label_col: species
+  group_col: data_type    # sensor platform: report accuracy per TLS / MLS / ULS
+  val_fraction: 0.15
+  min_trees_per_class: 10
+  n_points: 2048
+  n_views: 6
+  top_view: true
+  image_size: 64
+  cache_dir: data/cache/forspecies20k   # first epoch builds the cache; later epochs are fast
+
+model:
+  modality: fusion
+  fusion: attention
+  width: 1.0
+  sampling: fps
+  use_height: true
+  modality_dropout: 0.2
+
+train:
+  epochs: 80
+  batch_size: 32
+  lr: 0.001
+  weight_decay: 0.0005
+  class_weighting: sqrt_inv
+  balanced_sampler: true
+  label_smoothing: 0.1
+  num_workers: 8
+  amp: true
+  eval_every: 2

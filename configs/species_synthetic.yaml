@@ -1,0 +1,36 @@
+# Smoke-test config for species classification on synthetic trees.
+seed: 0
+device: auto
+output_dir: runs/species_synthetic
+
+data:
+  metadata_csv: data/synthetic/tree_metadata.csv
+  root: data/synthetic/trees
+  id_col: treeID
+  label_col: species
+  group_col: data_type
+  val_fraction: 0.2
+  min_trees_per_class: 5
+  n_points: 1024
+  n_views: 6
+  top_view: true
+  image_size: 48
+  cache_dir: data/synthetic/cache
+
+model:
+  modality: fusion       # points | views | fusion
+  fusion: attention      # concat | gated | attention
+  width: 0.5
+  sampling: fps
+  use_height: true
+  modality_dropout: 0.2
+
+train:
+  epochs: 2
+  batch_size: 16
+  lr: 0.002
+  weight_decay: 0.0001
+  class_weighting: sqrt_inv
+  balanced_sampler: false
+  label_smoothing: 0.1
+  num_workers: 0

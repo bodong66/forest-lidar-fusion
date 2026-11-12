@@ -1,0 +1,110 @@
+[
+  {
+    "task": "seg",
+    "width": 1.0,
+    "sampling": "fps",
+    "runtime": "torch-cpu",
+    "params_M": 0.963109,
+    "n_points": 4096,
+    "batch": 1,
+    "ms_mean": 154.42592560002595,
+    "ms_p90": 167.68811790013842,
+    "samples_per_s": 6.475596607981943
+  },
+  {
+    "task": "seg",
+    "width": 1.0,
+    "sampling": "prefix",
+    "runtime": "torch-cpu",
+    "params_M": 0.963109,
+    "n_points": 4096,
+    "batch": 1,
+    "ms_mean": 63.65342419996978,
+    "ms_p90": 70.26336889994127,
+    "samples_per_s": 15.710073928756135
+  },
+  {
+    "task": "seg",
+    "width": 1.0,
+    "sampling": "prefix",
+    "runtime": "onnxruntime-cpu",
+    "params_M": 0.963109,
+    "n_points": 4096,
+    "batch": 1,
+    "ms_mean": 48.80335329994523,
+    "ms_p90": 51.527623199922346,
+    "samples_per_s": 20.490395277840925
+  },
+  {
+    "task": "seg",
+    "width": 0.5,
+    "sampling": "fps",
+    "runtime": "torch-cpu",
+    "params_M": 0.243221,
+    "n_points": 4096,
+    "batch": 1,
+    "ms_mean": 128.3879234999631,
+    "ms_p90": 145.29878209998515,
+    "samples_per_s": 7.788894568423231
+  },
+  {
+    "task": "seg",
+    "width": 0.5,
+    "sampling": "prefix",
+    "runtime": "torch-cpu",
+    "params_M": 0.243221,
+    "n_points": 4096,
+    "batch": 1,
+    "ms_mean": 53.11664339997151,
+    "ms_p90": 56.11961319996226,
+    "samples_per_s": 18.826490832071975
+  },
+  {
+    "task": "seg",
+    "width": 0.5,
+    "sampling": "prefix",
+    "runtime": "onnxruntime-cpu",
+    "params_M": 0.243221,
+    "n_points": 4096,
+    "batch": 1,
+    "ms_mean": 36.18501119999564,
+    "ms_p90": 37.13722590002817,
+    "samples_per_s": 27.635752120483534
+  },
+  {
+    "task": "seg",
+    "width": 0.25,
+    "sampling": "fps",
+    "runtime": "torch-cpu",
+    "params_M": 0.062029,
+    "n_points": 4096,
+    "batch": 1,
+    "ms_mean": 133.11038469998948,
+    "ms_p90": 154.3806107998762,
+    "samples_per_s": 7.512561865506193
+  },
+  {
+    "task": "seg",
+    "width": 0.25,
+    "sampling": "prefix",
+    "runtime": "torch-cpu",
+    "params_M": 0.062029,
+    "n_points": 4096,
+    "batch": 1,
+    "ms_mean": 47.43878740002856,
+    "ms_p90": 53.98663590003707,
+    "samples_per_s": 21.079796824642234
+  },
+  {
+    "task": "seg",
+    "width": 0.25,
+    "sampling": "prefix",
+    "runtime": "onnxruntime-cpu",
+    "params_M": 0.062029,
+    "n_points": 4096,
+    "batch": 1,
+    "ms_mean": 24.14431919994513,
+    "ms_p90": 24.521752299983742,
+    "samples_per_s": 41.417610151636524
+  }
+]

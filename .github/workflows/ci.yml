@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install (CPU torch)
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -e ".[edge,dev]"
+      - name: Lint
+        run: ruff check src tests scripts
+      - name: Unit tests
+        run: pytest -q
+      - name: End-to-end smoke run on synthetic data
+        run: |
+          python scripts/make_synthetic_data.py --out data/synthetic --plots 3 --trees-per-species 20
+          python -m forestfusion.train_seg --config configs/seg_synthetic.yaml train.epochs=1 data.samples_per_epoch=16
+          python -m forestfusion.train_species --config configs/species_synthetic.yaml train.epochs=1
+          python -m forestfusion.export --checkpoint runs/species_synthetic/best.pt --task species
+          python -m forestfusion.export --checkpoint runs/seg_synthetic/best.pt --task seg --sampling prefix

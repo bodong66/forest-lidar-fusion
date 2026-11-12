@@ -1,0 +1,40 @@
+# FOR-instance semantic segmentation (UAV laser scanning, 5 regions incl. NIBIO, Norway).
+# Download: https://zenodo.org/records/8287792  then  python scripts/prepare_forinstance.py
+seed: 0
+device: auto
+output_dir: runs/seg_forinstance_pn2
+
+data:
+  root: .
+  train_files: data/splits/forinstance_train.txt
+  val_files: data/splits/forinstance_val.txt
+  # FOR-instance raw classes (verify against the dataset README after download):
+  #   0 unclassified, 1 low vegetation, 2 terrain, 3 out-points, 4 stem,
+  #   5 live branches, 6 woody (dead) branches.  0 and 3 are ignored.
+  label_map: {2: 0, 1: 1, 4: 2, 5: 3, 6: 4}
+  class_names: [terrain, low_vegetation, stem, live_branches, woody_branches]
+  n_points: 8192
+  radius: 4.0          # metres; columns of ~50 m2, big enough to contain a crown
+  samples_per_epoch: 4000
+
+model:
+  width: 1.0
+  sampling: fps        # compare against 'prefix' in the edge study
+  k: 32
+
+train:
+  epochs: 100
+  batch_size: 8
+  lr: 0.001
+  weight_decay: 0.0001
+  class_weighting: sqrt_inv   # stems and woody branches are rare
+  label_smoothing: 0.05
+  num_workers: 8
+  amp: true
+  eval_every: 5
+
+instance:
+  stem_class: stem
+  tree_classes: [stem, live_branches, woody_branches]
+  eps: 0.5
+  max_dist: 6.0

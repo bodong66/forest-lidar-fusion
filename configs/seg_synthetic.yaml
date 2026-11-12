@@ -1,0 +1,36 @@
+# Smoke-test config: runs on CPU in a couple of minutes on synthetic data.
+# Generate data first: python scripts/make_synthetic_data.py --out data/synthetic
+seed: 0
+device: auto
+output_dir: runs/seg_synthetic
+
+data:
+  root: .
+  train_files: ["data/synthetic/plots/train/*.las"]
+  val_files: ["data/synthetic/plots/val/*.las"]
+  # raw LAS classification code -> training class id (same scheme as FOR-instance)
+  label_map: {2: 0, 1: 1, 4: 2, 5: 3, 6: 4}
+  class_names: [terrain, low_vegetation, stem, live_branches, woody_branches]
+  n_points: 2048
+  radius: 4.0
+  samples_per_epoch: 64
+
+model:
+  width: 0.5
+  sampling: fps
+  k: 16
+
+train:
+  epochs: 2
+  batch_size: 8
+  lr: 0.002
+  weight_decay: 0.0001
+  class_weighting: sqrt_inv
+  label_smoothing: 0.0
+  num_workers: 0
+
+instance:
+  stem_class: stem
+  tree_classes: [stem, live_branches, woody_branches]
+  eps: 0.6
+  max_dist: 6.0
